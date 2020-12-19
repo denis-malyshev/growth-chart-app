@@ -4,15 +4,55 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Growth Chart SMART Application</title>
+    <style>
+        .register {
+            display: none;
+        }
+        .requireRegistration .loading {
+            display: none;
+        }
+        .requireRegistration .register {
+            display: block;
+        }
+    </style>
     <script src="node_modules/fhirclient/build/fhir-client.js"></script>
     <script>
-      FHIR.oauth2.authorize({
-        "client_id": "growth_chart",
-        "scope":  "patient/Observation.read patient/Patient.read offline_access",
-        // "client_id": "944d96a0-4caf-4a96-813e-bc38aadb1169" // HSPC
-        // "client_id": "5570f8be-6caf-4915-ae15-69545ab38e68" // Cerner
-      });
+        function launch() {
+            let clientID = localStorage.getItem('publicAppClientID');
+
+            FHIR.oauth2.authorize({
+                // "client_id": "growth_chart",
+                "client_id": clientID, // OpenEMR
+                // "client_id": "I5lpBRdsrZKxECwBs6eYIixkExDMiS5EasLKXu66_As",
+                "scope":  "patient/Observation.read patient/Patient.read offline_access",
+                // "client_id": "944d96a0-4caf-4a96-813e-bc38aadb1169" // HSPC
+                // "client_id": "5570f8be-6caf-4915-ae15-69545ab38e68" // Cerner
+            });
+        }
+        function saveClientID() {
+            let clientID = document.querySelector("#clientID").value.trim();
+            localStorage.setItem('publicAppClientID', clientID);
+            launch();
+        }
+        let clientID = localStorage.getItem('publicAppClientID');
+        if (!clientID) {
+            window.addEventListener('load', function() {
+                document.body.classList.add("requireRegistration");
+                document.querySelector("#save").addEventListener('click', saveClientID);
+            })
+        } else {
+            launch();
+        }
     </script>
   </head>
-  <body>Loading...</body>
+  <body>
+      <div class="loading">
+          Loading...
+      </div>
+      <div class="register">
+          This app must be registered.  Please enter the application clientID that this app will use:
+          <input type="text" id="clientID" placeholder="clientID" />
+          <input type="button" id="save" value="Save" />
+      </div>
+  </body>
 </html>

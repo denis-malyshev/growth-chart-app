@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Growth Chart SMART Application</title>
+    <script src="node_modules/fhirclient/build/fhir-client.js"></script>
+    <script>
+        function deregister() {
+            localStorage.removeItem('publicAppClientID');
+        }
+        window.addEventListener('load', function() {
+            let clientID = localStorage.getItem('publicAppClientID') || "";
+            document.querySelector("#clientID").value = clientID;
+            document.querySelector("#deregister").addEventListener('click', deregister);
+        })
+    </script>
+  </head>
+  <body>
+      <div>
+          <textarea id="clientID"></textarea>
+          <input type="button" id="deregister" value="Degister" />
+          <a href="/launch.html">Restart launch</a>
+      </div>
+  </body>
+</html>
