@@ -20,8 +20,8 @@
         function launch() {
             // let clientID = localStorage.getItem('publicAppClientID');
             FHIR.oauth2.authorize({
-                "client_id": "a1IlDAP-veznlxBWvwWZlnn9y6y9Yo3YVxGhFUraMwg", // OpenEMR
-                "scope":  "patient/Patient.read patient/Observation.read launch/patient online_access openid profile",
+                "client_id": "LruNhbGeDqypBlRA0dJPhe6I6N61VgcQGqbfVNYT-h8", // OpenEMR
+                "scope":  "fhirUser user/Observation.read user/Patient.read offline_access",
             });
         }
         launch();
