@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Growth Chart SMART Application</title>
@@ -18,41 +18,37 @@
     <script src="fhir-client.js"></script>
     <script>
         function launch() {
-            let clientID = localStorage.getItem('publicAppClientID');
-
+            // let clientID = localStorage.getItem('publicAppClientID');
             FHIR.oauth2.authorize({
-                // "client_id": "growth_chart",
-                "client_id": clientID, // OpenEMR
-                // "client_id": "I5lpBRdsrZKxECwBs6eYIixkExDMiS5EasLKXu66_As",
-                "scope":  "fhirUser user/Observation.read user/Patient.read offline_access",
-                // "client_id": "944d96a0-4caf-4a96-813e-bc38aadb1169" // HSPC
-                // "client_id": "5570f8be-6caf-4915-ae15-69545ab38e68" // Cerner
+                "client_id": "nG2JA0xZuQt7ESU9PApLlY0wxZ5sdAvN0j5AXUFhblI", // OpenEMR
+                "scope":  "patient/Patient.read patient/Observation.read launch/patient online_access openid profile",
             });
         }
-        function saveClientID() {
-            let clientID = document.querySelector("#clientID").value.trim();
-            localStorage.setItem('publicAppClientID', clientID);
-            launch();
-        }
-        let clientID = localStorage.getItem('publicAppClientID');
-        if (!clientID) {
-            window.addEventListener('load', function() {
-                document.body.classList.add("requireRegistration");
-                document.querySelector("#save").addEventListener('click', saveClientID);
-            })
-        } else {
-            launch();
-        }
+        launch();
+        // function saveClientID() {
+        //     let clientID = document.querySelector("#clientID").value.trim();
+        //     localStorage.setItem('publicAppClientID', clientID);
+        //     launch();
+        // }
+        // let clientID = localStorage.getItem('publicAppClientID');
+        // if (!clientID) {
+        //     window.addEventListener('load', function() {
+        //         document.body.classList.add("requireRegistration");
+        //         document.querySelector("#save").addEventListener('click', saveClientID);
+        //     })
+        // } else {
+        //     launch();
+        // }
     </script>
-  </head>
-  <body>
-      <div class="loading">
-          Loading...
-      </div>
-      <div class="register">
-          This app must be registered.  Please enter the application clientID that this app will use:
-          <input type="text" id="clientID" placeholder="clientID" />
-          <input type="button" id="save" value="Save" />
-      </div>
-  </body>
+</head>
+<body>
+<div class="loading">
+    Loading...
+</div>
+<div class="register">
+    This app must be registered.  Please enter the application clientID that this app will use:
+    <input type="text" id="clientID" placeholder="clientID" />
+    <input type="button" id="save" value="Save" />
+</div>
+</body>
 </html>
